@@ -13,8 +13,8 @@ function Register(props) {
         auth.createUserWithEmailAndPassword(email, password)
             .then(response => {
                 db.collection('users').add({
-                    email: auth.currentUser.email,
-                    userName: auth.currentUser.userName,
+                    email: email,
+                    userName: userName,
                     createdAt: Date.now(),
                 })
                     .then( () => props.navigation.navigate('Login'))
@@ -22,7 +22,7 @@ function Register(props) {
             })
             .catch(error => {
                 console.log(error)
-                setErrores('Fallo en el registro.')
+                setErrores(error.message)
             })
     }; 
 
@@ -35,11 +35,13 @@ function Register(props) {
                     placeholder='email'
                     onChangeText={text => setEmail(text)}
                     value={email} />
+
                 <TextInput style={styles.input}
                     keyboardType='default'
                     placeholder='userName'
                     onChangeText={text => setUserName(text)}
                     value={userName} />
+
                 <TextInput style={styles.input}
                     keyboardType='default'
                     placeholder='password'

@@ -5,16 +5,17 @@ import { auth } from '../firebase/config';
 function Login(props) {
 
     const [email, setEmail] = useState('');
-    const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [errores, setErrores] = useState('');
 
     function onSubmit(email, password) {
         if (!email.includes('@')) {
-            return setErrores("Email mal formateado")
+            setErrores("Email mal formateado")
+            return
         }
         if (password.length < 6) {
-            return setErrores("La password debe tener una longitud mínima de 6 caracteres")
+            setErrores("La password debe tener una longitud mínima de 6 caracteres")
+            return 
         } 
 
         auth.signInWithEmailAndPassword(email, password)
@@ -22,7 +23,8 @@ function Login(props) {
                 props.navigation.navigate('HomeMenu');
             })
             .catch(error => {
-                setErrores('Fallo en el registro.')
+                console.log(error)
+                setErrores(error.message)
             });
     }
 
@@ -39,11 +41,7 @@ return (
                 placeholder='email'
                 onChangeText={text => setEmail(text)}
                 value={email} />
-            <TextInput style={styles.input}
-                keyboardType='default'
-                placeholder='userName'
-                onChangeText={text => setUserName(text)}
-                value={userName} />
+            
             <TextInput style={styles.input}
                 keyboardType='default'
                 placeholder='password'

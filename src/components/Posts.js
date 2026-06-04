@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { db, auth } from '../firebase/config';
 import { FlatList } from 'react-native';
 
-function Usuarios(props) {
+function Posts(props) {
 
     const [usuarios, setUsuarios] = useState([]);
     const [loading, setLoading] = useState('');
@@ -90,4 +90,4 @@ const styles = StyleSheet.create({
 
 
 
-export default Usuarios; 
+export default Posts; 
