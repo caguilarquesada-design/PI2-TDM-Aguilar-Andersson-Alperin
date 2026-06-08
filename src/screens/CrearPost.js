@@ -14,6 +14,8 @@ function CrearPost(props) {
                 email: auth.currentUser.email,
                 descripcion: descripcion,
                 createdAt: Date.now(),
+                likes: [],
+                comentarios: [],
             })
             .then((response) => {
                 props.navigation.navigate('Home');
@@ -23,7 +25,6 @@ function CrearPost(props) {
                 console.log(error)
                 
             });
-
     }
 
 
@@ -42,9 +43,6 @@ return (
                     :
                     null
             }
-
-
-
 
             <Pressable onPress={() => onSubmit()} style={styles.boton1}>
                 <Text style={styles.textoBoton} >Publicar post</Text>
