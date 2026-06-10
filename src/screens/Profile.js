@@ -1,41 +1,162 @@
-import { Text, View, Pressable, StyleSheet} from 'react-native';
+import { Text, View, Pressable, StyleSheet } from 'react-native';
+import { useState, useEffect } from "react";
+import { auth, db } from "../firebase/config";
+import { FlatList } from 'react-native-web';
+
 
 function Profile(props) {
 
+    const [usuario, setUsuario] = useState(null);
+    const [posteos, setPosteos] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        db.collection("users")
+            .where("email", "==", auth.currentUser.email)
+        onSnapshot(docs => {
+            docs.forEach(doc => {
+                setUsuario({
+                    id: doc.id,
+                    data: doc.data()
+                });
+            });
+        });
+
+        db.collection("posts")
+            .where("email", "==", auth.currentUser.email)
+            .onSnapshot(docs => {
+                let posts = [];
+
+                docs.forEach(doc => {
+                    posts.push({
+                        id: doc.id,
+                        data: doc.data()
+                    });
+                });
+
+                setPosteos(posts);
+                setLoading(false);
+            });
+    }, []);
+
+    function logout() {
+        auth.signOut()
+            .then(() => {
+                props.navigation.navigate("login");
+            })
+            .catch(error => console.log(error));
+    }
+
     return (
         <View style={styles.container}>
-            <Text style={styles.titulo}>Perfil</Text>
-            <Pressable onPress={() => props.navigation.navigate('Login')} 
-            style={styles.boton}>
-                <Text style={styles.textoBoton}>Desloguearse</Text>
+            <Text style={styles.titulo}>Mi Perfil</Text>
+
+            {
+                usuario !== null ?
+                    <View style={styles.datosUsuario}>
+                        <Text style={styles.nomnreUsuario}>{usuario.data.userName}</Text>
+                        <Text style={styles.emailUsuario}>{usuario.data.email}</Text>
+                    </View>
+
+                    :
+
+                    <View style={styles.datosUsuario}>
+                        <Text style={styles.nombreUsuario}>Usuario</Text>
+
+                        <Text style={styles.emailUsuario}>{auth.currentUser.email}</Text>
+                    </View>
+            }   
+            <Text style={styles.subtitulo}>Últimos posteos</Text>
+
+            {
+                loading ?
+                     <Text>Cargando posteos...</Text>
+
+                :
+                    <FlatList data={posteos} keyextractor={item =>item.id} renderitem={({ item })=>
+                    (
+                       <View style={styles.posteo}>
+                                <Text style={styles.usuarioPost}>{item.data.email} posteó hoy</Text>
+
+                                <Text style={styles.descripcion}>{item.data.descripcion}</Text>
+                            </View>
+                        )}
+                    />
+            }
+
+            <Pressable onPress={()=>logout()} style={styles.botonLogout}>
+                <Text style={styles.textoLogout}>Cerrar sesión</Text>
             </Pressable>
-        </View>
+           
+        </View>                
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 25,
-        width: '100%',
-        backgroundColor: '#f2f2f2',
+const styles =StyleSheet.create({
+    container:{
+        flex:1,
+        padding: 20,
+        backgroundColor: "gray"
     },
-    titulo: {
-        fontSize: 32,
+
+    titulo:{
+        fontSize: 28,
+        fontWeight: "bold",
+        marginBottom: 15,
+    },
+
+    datosUsuario:{
+        marginBottom:20,
+    },
+
+    nombreUsuario:{
+        fontSize: 22,
+        fontWeight: "bold"
+    },
+    
+    emailusuario:{
+        fontSize: 15,
+    },
+
+    subtitulo:{
+        fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 15,
     },
-    boton: {
-        backgroundColor: '#4db6e8',
-        padding: 13,
-        borderRadius: 5,
-        marginBottom: 12,
-        alignItems: 'center',
-    },
-    textoBoton: {
-        color: 'black',
-        fontWeight: '600',
-    },
-});
 
-export default Profile; 
+    posteo: {
+        backgroundColor: "white",
+        borderWidth: 2,
+        borderColor: "black",
+        borderRadius: 18,
+        padding: 12,
+        marginBottom: 12,
+    },
+
+    usuarioPost: {
+        fontSize: 13,
+        marginBottom: 8,
+    },
+
+    descripcion: {
+        fontSize: 17,
+    },
+
+    botonLogout: {
+        backgroundColor: "pink",
+        padding: 14,
+        borderRadius: 8,
+        borderWidth: 2,
+        borderColor: 'black',
+        alignItems: 'center',
+        marginTop: 15,
+    },
+
+    textoLogout: {
+        fontSize: 17,
+        fontWeight: 'bold',
+    },
+
+})
+
+export default Profile;

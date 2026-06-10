@@ -6,6 +6,7 @@ import Entypo from '@expo/vector-icons/Entypo';
 import Profile from '../screens/Profile';
 import Home from '../screens/Home';
 import CrearPost from '../screens/CrearPost';
+import NavegacionHomeStack from './NavegacionHomeStack';
 
 const Tab = createBottomTabNavigator();
 export default function NavegacionStack() {
