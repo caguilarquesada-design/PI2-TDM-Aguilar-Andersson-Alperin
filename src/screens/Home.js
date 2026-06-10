@@ -1,6 +1,4 @@
-import { Pressable, Text, View, StyleSheet, Flatlist } from 'react-native';
-import DynamicForm from '../components/DynamicForm';
-import Posts from '../components/Posts';
+import { Pressable, Text, View, FlatList} from 'react-native';
 import { useState, useEffect } from "react";
 import { auth, db } from "../firebase/config";
 import firebase from "firebase";
@@ -54,8 +52,8 @@ function Home(props) {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.titulo}>Página principal</Text>
+        <View>
+            <Text >Página principal</Text>
             {
                 loading ?
                     <Text>Cargando posteos...</Text>
@@ -67,23 +65,23 @@ function Home(props) {
                             const likes = item.data.likes ? item.data.likes : [];
 
                             return (
-                                <View style={styles.posteo}>
+                                <View >
 
-                                    <Text style={styles.usuario}>{item.data.email} posteó hoy</Text>
+                                    <Text>{item.data.email} posteó hoy</Text>
 
-                                    <Text style={styles.descripcion}> {item.data.descripcion}</Text>
-                                    <View style={styles.acciones}>
+                                    <Text > {item.data.descripcion}</Text>
+                                    <View >
 
-                                        <Pressable onPress={() => likePost(item)} style={styles.likesContainer}>
-                                            <Text style={styles.corazon}>Like</Text>
-                                            <Text style={styles.likesTexto}>
+                                        <Pressable onPress={() => likePost(item)} >
+                                            <Text >Like</Text>
+                                            <Text >
                                                 {likes.length} likes
                                             </Text>
                                         </Pressable>
 
                                         <Pressable
-                                            onPress={() => props.navigation.navigate('Comments', { id: item.id })} style={styles.botonComentar}>
-                                            <Text style={styles.textoComentar}>Comentar</Text>
+                                            onPress={() => props.navigation.navigate('Comments', { id: item.id })} >
+                                            <Text >Comentar</Text>
                                         </Pressable>
 
                                     </View>
@@ -92,5 +90,7 @@ function Home(props) {
                             ); }}
                             />}
                              </View>);}
+
+                             
 
 export default Home; 

@@ -1,36 +1,44 @@
 import { Text, View, Pressable, StyleSheet, TextInput } from 'react-native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { db, auth } from '../firebase/config';
 import { FlatList } from 'react-native';
 
 function Posts(props) {
 
-    const [usuarios, setUsuarios] = useState([]);
-    const [loading, setLoading] = useState('');
+    const [posts, setPosteos] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    db.collection('users').onSnapshot(
-        docs =>{
-            let users = [];
-            docs.forEach( doc => {
-                users.push({
-                    id: doc.id,
-                    data: doc.data()
+    useEffect(() => {
+        db.collection('posts').orderBy('createdAt', 'desc').onSnapshot(
+            docs => {
+                let posts = [];
+                docs.forEach(doc => {
+                    posts.push({
+                        id: doc.id,
+                        data: doc.data()
+                    })
                 })
-                setUsuarios(users);
-                setLoading(false);   
+                setPosteos(posts);
+                setLoading(false);
             })
-        }
-            
-    )
+    }, [])
+
 
     console.log(usuarios);
 
     return (
         <View style={styles.container}>
             <FlatList
-                data={ users }
-                keyExtractor={ item => item.id.toString() }
-                renderItem={ ({item}) => <Text>{item.data.email}</Text>}
+                data={posts}
+                keyExtractor={item => item.id.toString()}
+                renderItem={({ item }) => (
+                    <View>
+                        <Text>{item.data.email}</Text>
+                        <Text>{item.data.posts}</Text>
+                        <Text>{item.data.desccripcion}</Text>
+                        <Text>{item.data.likes.length} Likes</Text>
+                    </View>
+                )}
 
             />
         </View>
