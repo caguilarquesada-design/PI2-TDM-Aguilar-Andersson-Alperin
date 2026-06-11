@@ -69,7 +69,7 @@ function Posts(props) {
                                     <View >
 
                                         <Pressable onPress={() => likePost(item)} style={styles.boton1}>
-                                            <Text style={styles.textoBoton}>Like</Text>
+                                            <Text style={styles.textoBoton}>❤️ Like</Text>
                                             <Text style={styles.texto}>
                                                 {likes.length} likes
                                             </Text>
@@ -77,7 +77,7 @@ function Posts(props) {
 
                                         <Pressable style={styles.boton1}
                                             onPress={() => props.navigation.navigate('ComentarPosteo', { id: item.id })} >
-                                            <Text style={styles.textoBoton}>Comentar</Text>
+                                            <Text style={styles.textoBoton}>🖋️Comentar</Text>
                                         </Pressable>
 
                                     </View>
@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         padding: 15,
         marginBottom: 15,
+        borderWidth: 2,
     },
     fecha: {
         fontSize: 12,
@@ -112,22 +113,29 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     descrip: {
-        fontSize: 15,
+        fontSize: 25,
     },
     boton1: {
         backgroundColor: '#a1d7f0e5',
         flex: 2, 
-        padding: 14,
+        padding: 12,
         borderRadius: 10,
         borderColor: 'black',
         alignItems: 'center',
-        marginTop: 15,
+        marginTop: 20,
+        alignSelf: 'flex-start',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+
     },
     textoBoton: {
         fontSize: 15,
+        borderRadius: 10,
         padding: 10,
-        fontWeight: 'bold'
-    }
+        fontWeight: 'bold',
+        alignItems: 'center'
+    },
+
 });
 
 export default Posts; 

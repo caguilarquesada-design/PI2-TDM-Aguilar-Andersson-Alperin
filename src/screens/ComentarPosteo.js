@@ -1,9 +1,9 @@
-import { Text, View, Pressable, StyleSheet, TextInput, FlatList} from 'react-native';
-import { useState, useEffect} from 'react';
+import { Text, View, Pressable, StyleSheet, TextInput, FlatList } from 'react-native';
+import { useState, useEffect } from 'react';
 import { auth, db } from '../firebase/config';
 import firebase from 'firebase';
 
-    
+
 function ComentarPosteo(props) {
 
     const id = props.route.params.id;
@@ -69,7 +69,7 @@ function ComentarPosteo(props) {
 
                 <Text style={styles.descrip}>{posteo.data.descripcion}</Text>
 
-                <Text style={styles.textoBoton}>corazones {likes.length} likes</Text>
+                <Text style={styles.textoBoton}>{likes.length} likes</Text>
 
                 <Text style={styles.texto}>Comentarios</Text>
 
@@ -84,7 +84,7 @@ function ComentarPosteo(props) {
                                 </View>
                             )}
                         />
-                    :
+                        :
                         <Text style={styles.textoBoton}>Todavía no hay comentarios</Text>
                 }
 
@@ -99,7 +99,7 @@ function ComentarPosteo(props) {
                 {
                     error !== '' ?
                         <Text style={styles.textoError}>{error}</Text>
-                    :
+                        :
                         null
                 }
 
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     },
     texto: {
         fontSize: 15,
-        padding: 10,
+        padding: 5,
     },
     posteo: {
         backgroundColor: 'white',
@@ -137,8 +137,8 @@ const styles = StyleSheet.create({
         fontSize: 15,
     },
     boton1: {
-        backgroundColor: '#a1d7f0e5',
-        flex: 2, 
+        backgroundColor: '#45afe1e5',
+        flex: 2,
         padding: 14,
         borderRadius: 10,
         borderColor: 'black',
@@ -153,6 +153,13 @@ const styles = StyleSheet.create({
     textoError: {
         color: 'red',
         fontWeight: '600',
+    },
+    input: {
+        backgroundColor: '#a1d7f0e5',
+        padding: 10,
+        borderRadius: 10,
+        marginTop: 5,
+        marginBottom: 15,
     }
 });
 

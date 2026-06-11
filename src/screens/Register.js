@@ -28,7 +28,7 @@ function Register(props) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.titulo} >Formulario Register</Text>
+            <Text style={styles.titulo} >Register</Text>
             <View style={styles.containerFrom}>
                 <TextInput style={styles.input}
                     keyboardType='email-address'

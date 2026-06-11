@@ -13,14 +13,18 @@ function Home(props) {
 }
 const styles = StyleSheet.create({
     titulo: {
-        fontSize: 28,
+        fontSize: 30,
         fontWeight: 'bold',
-        marginBottom: 15,
+        padding: 20,
+        color: 'black',
+        marginBottom: 8,
     },
     subtitulo: {
-      fontSize: 20, 
+      fontSize: 22, 
       fontWeight: 'bold',
-      marginBottom: 15,
+      marginBottom: 20,
+      color: 'black',
+      padding:10,
     }
 });
 

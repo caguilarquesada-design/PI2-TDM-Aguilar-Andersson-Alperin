@@ -98,12 +98,16 @@ const styles = StyleSheet.create({
     },
 
     titulo: {
-        fontSize: 28,
+        fontSize: 30,
         fontWeight: "bold",
-        marginBottom: 15,
+        marginBottom: 20,
+        color: 'black',
     },
 
     datosUsuario: {
+        backgroundColor: 'white',
+        padding: 18,
+        borderRadius: 15,
         marginBottom: 20,
     },
 
@@ -115,6 +119,7 @@ const styles = StyleSheet.create({
 
     emailusuario: {
         fontSize: 15,
+        color: 'grey',
     },
 
     subtitulo: {
@@ -127,14 +132,15 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         borderWidth: 2,
         borderColor: "black",
-        borderRadius: 18,
-        padding: 12,
+        borderRadius: 15,
+        padding: 15,
         marginBottom: 12
     },
 
     usuarioPost: {
         fontSize: 13,
-        marginBottom: 8
+        marginBottom: 8,
+        color: 'grey'
     },
 
     descripcion: {
@@ -148,7 +154,9 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: 'black',
         alignItems: 'center',
-        marginTop: 15
+        marginTop: 15,
+        position: 'bottom'
+        
     },
 
     textoLogout: {

@@ -29,11 +29,12 @@ function CrearPost(props) {
 
 return (
     <View style={styles.container}>
-        <Text style={styles.titulo} >Crear nuevo post</Text>
+        <View style={styles.cuadrado}>
+            <Text style={styles.titulo} >Nuevo post</Text>
         <View style={styles.containerFrom}>
             <TextInput style={styles.input}
                 keyboardType='default'
-                placeholder='comentario'
+                placeholder='comience a escribir...'
                 onChangeText={text => setDescripcion(text)}
                 value={descripcion} />
 
@@ -44,8 +45,10 @@ return (
             }
 
             <Pressable onPress={() => onSubmit()} style={styles.boton1}>
-                <Text style={styles.textoBoton} >Publicar post</Text>
+                <Text style={styles.textoBoton} >Publicar</Text>
             </Pressable>
+        </View>
+
         </View>
     </View>
 )}
@@ -66,6 +69,23 @@ const styles = StyleSheet.create({
         color: 'black',
         fontWeight: '600',
     },
+    cuadrado: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 15,
+        marginTop: 20,
+        borderWidth: 2,
+
+    },
+    input: {
+        backgroundColor: 'lightblue',
+        padding: 10,
+        borderRadius: 10,
+        marginTop: 5,
+        marginBottom: 15,
+
+    },
+
 });
 
 
