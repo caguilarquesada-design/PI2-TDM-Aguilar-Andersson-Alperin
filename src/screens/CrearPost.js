@@ -4,7 +4,6 @@ import { auth, db } from '../firebase/config';
 
 function CrearPost(props) {
 
-    const [email, setEmail] = useState('');
     const [descripcion, setDescripcion] = useState('');
     const [errores, setErrores] = useState('');
 

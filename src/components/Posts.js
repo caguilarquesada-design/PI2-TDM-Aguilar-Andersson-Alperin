@@ -77,7 +77,7 @@ function Posts(props) {
                                         </Pressable>
 
                                         <Pressable
-                                            onPress={() => props.navigation.navigate('Comments', { id: item.id })} >
+                                            onPress={() => props.navigation.navigate('ComentarPosteo', { id: item.id })} >
                                             <Text >Comentar</Text>
                                         </Pressable>
 
