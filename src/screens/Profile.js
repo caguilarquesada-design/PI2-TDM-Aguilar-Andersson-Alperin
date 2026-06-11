@@ -1,6 +1,7 @@
 import { Text, View, Pressable, StyleSheet, FlatList } from 'react-native';
 import { useState, useEffect } from "react";
 import { auth, db } from "../firebase/config";
+import Post from '../components/Post';
 
 function Profile(props) {
 
@@ -53,7 +54,7 @@ function Profile(props) {
             {
                 usuario !== null ?
                     <View style={styles.datosUsuario}>
-                        <Text style={styles.nomnreUsuario}>{usuario.data.userName}</Text>
+                        <Text style={styles.nombreUsuario}>{usuario.data.userName}</Text>
                         <Text style={styles.emailUsuario}>{usuario.data.email}</Text>
                     </View>
 
@@ -72,14 +73,15 @@ function Profile(props) {
                     <Text>Cargando posteos...</Text>
 
                     :
-                    <FlatList data={posteos} keyextractor={item => item.id} renderitem={({ item }) =>
-                    (
-                        <View style={styles.posteo}>
-                            <Text style={styles.usuarioPost}>{item.data.email} posteó hoy</Text>
-
-                            <Text style={styles.descripcion}>{item.data.descripcion}</Text>
-                        </View>
-                    )}
+                    <FlatList
+                        data={posteos}
+                        keyExtractor={item => item.id}
+                        renderItem={({ item }) => (
+                            <Post
+                                post={item}
+                                navigation={props.navigation}
+                            />
+                        )}
                     />
             }
 
@@ -127,26 +129,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 15,
     },
-
-    posteo: {
-        backgroundColor: "white",
-        borderWidth: 2,
-        borderColor: "black",
-        borderRadius: 15,
-        padding: 15,
-        marginBottom: 12
-    },
-
-    usuarioPost: {
-        fontSize: 13,
-        marginBottom: 8,
-        color: 'grey'
-    },
-
-    descripcion: {
-        fontSize: 17
-    },
-
     botonLogout: {
         backgroundColor: "pink",
         padding: 14,
@@ -156,9 +138,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 15,
         position: 'bottom'
-        
-    },
 
+    },
     textoLogout: {
         fontSize: 17,
         fontWeight: 'bold',

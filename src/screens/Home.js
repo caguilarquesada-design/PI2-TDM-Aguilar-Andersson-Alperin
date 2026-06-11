@@ -4,7 +4,7 @@ import Posts from '../components/Posts';
 function Home(props) {
 
   return (
-      <View>
+      <View style={styles.container}>
         <Text style={styles.titulo}>Pagina principal</Text>
         <Text style={styles.subtitulo}>Posteos</Text>
         <Posts  navigation={props.navigation} />
@@ -12,6 +12,9 @@ function Home(props) {
   );
 }
 const styles = StyleSheet.create({
+  container:{
+    flex:1
+  },
     titulo: {
         fontSize: 30,
         fontWeight: 'bold',
