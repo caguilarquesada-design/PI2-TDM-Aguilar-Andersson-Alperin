@@ -13,14 +13,14 @@ function Profile(props) {
     useEffect(() => {
         db.collection("users")
             .where("email", "==", auth.currentUser.email)
-        onSnapshot(docs => {
-            docs.forEach(doc => {
-                setUsuario({
-                    id: doc.id,
-                    data: doc.data()
+            .onSnapshot(docs => {
+                docs.forEach(doc => {
+                    setUsuario({
+                        id: doc.id,
+                        data: doc.data()
+                    });
                 });
             });
-        });
 
         db.collection("posts")
             .where("email", "==", auth.currentUser.email)
@@ -37,14 +37,15 @@ function Profile(props) {
                 setPosteos(posts);
                 setLoading(false);
             });
-    }, []);
+    }, []);3
 
     function logout() {
         auth.signOut()
             .then(() => {
-                props.navigation.navigate("login");
+                props.navigation.navigate("Login");
             })
             .catch(error => console.log(error));
+
     }
 
     return (
@@ -65,60 +66,60 @@ function Profile(props) {
 
                         <Text style={styles.emailUsuario}>{auth.currentUser.email}</Text>
                     </View>
-            }   
+            }
             <Text style={styles.subtitulo}>Últimos posteos</Text>
 
             {
                 loading ?
-                     <Text>Cargando posteos...</Text>
+                    <Text>Cargando posteos...</Text>
 
-                :
-                    <FlatList data={posteos} keyextractor={item =>item.id} renderitem={({ item })=>
+                    :
+                    <FlatList data={posteos} keyextractor={item => item.id} renderitem={({ item }) =>
                     (
-                       <View style={styles.posteo}>
-                                <Text style={styles.usuarioPost}>{item.data.email} posteó hoy</Text>
+                        <View style={styles.posteo}>
+                            <Text style={styles.usuarioPost}>{item.data.email} posteó hoy</Text>
 
-                                <Text style={styles.descripcion}>{item.data.descripcion}</Text>
-                            </View>
-                        )}
+                            <Text style={styles.descripcion}>{item.data.descripcion}</Text>
+                        </View>
+                    )}
                     />
             }
 
-            <Pressable onPress={()=>logout()} style={styles.botonLogout}>
+            <Pressable onPress={() => logout()} style={styles.botonLogout}>
                 <Text style={styles.textoLogout}>Cerrar sesión</Text>
             </Pressable>
-           
-        </View>                
+
+        </View>
     );
 }
 
-const styles =StyleSheet.create({
-    container:{
-        flex:1,
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
         padding: 20,
         backgroundColor: "gray"
     },
 
-    titulo:{
+    titulo: {
         fontSize: 28,
         fontWeight: "bold",
         marginBottom: 15,
     },
 
-    datosUsuario:{
-        marginBottom:20,
+    datosUsuario: {
+        marginBottom: 20,
     },
 
-    nombreUsuario:{
+    nombreUsuario: {
         fontSize: 22,
         fontWeight: "bold"
     },
-    
-    emailusuario:{
+
+    emailusuario: {
         fontSize: 15,
     },
 
-    subtitulo:{
+    subtitulo: {
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 15,

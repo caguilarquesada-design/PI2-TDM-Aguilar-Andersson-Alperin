@@ -23,79 +23,73 @@ function Posts(props) {
             })
     }, [])
 
+    function likePost(post) {
+        const usuario = auth.currentUser.email;
+        const likes = post.data.likes ? post.data.likes : [];
 
-    console.log(usuarios);
+        if (likes.includes(usuario)) {
+            db.collection("posts")
+                .doc(post.id)
+                .update({
+                    likes: firebase.firestore.FieldValue.arrayRemove(usuario)
+                })
+                .then(() => {
+                    console.log("Like eliminado");
+                });
+        } else {
+            db.collection("posts")
+                .doc(post.id)
+                .update({
+                    likes: firebase.firestore.FieldValue.arrayUnion(usuario)
+                })
+                .then(() => {
+                    console.log("Like agregado")
+                });
+        }
+    }
 
     return (
-        <View style={styles.container}>
-            <FlatList
-                data={posts}
-                keyExtractor={item => item.id.toString()}
-                renderItem={({ item }) => (
-                    <View>
-                        <Text>{item.data.email}</Text>
-                        <Text>{item.data.posts}</Text>
-                        <Text>{item.data.desccripcion}</Text>
-                        <Text>{item.data.likes.length} Likes</Text>
-                    </View>
-                )}
+        <View>
+            <Text >Página principal</Text>
+            {
+                loading ?
+                    <Text>Cargando posteos...</Text>
+                    :
+                    <FlatList
+                        data={posts}
+                        keyExtractor={item => item.id}
+                        renderItem={({ item }) => {
+                            const likes = item.data.likes ? item.data.likes : [];
 
-            />
+                            return (
+                                <View >
+
+                                    <Text>{item.data.email} posteó hoy</Text>
+
+                                    <Text > {item.data.descripcion}</Text>
+                                    <View >
+
+                                        <Pressable onPress={() => likePost(item)} >
+                                            <Text >Like</Text>
+                                            <Text >
+                                                {likes.length} likes
+                                            </Text>
+                                        </Pressable>
+
+                                        <Pressable
+                                            onPress={() => props.navigation.navigate('Comments', { id: item.id })} >
+                                            <Text >Comentar</Text>
+                                        </Pressable>
+
+                                    </View>
+
+                                </View>
+                            );
+                        }}
+                    />
+            }
         </View>
-    )
+    );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 25,
-        width: '100%',
-        backgroundColor: '#f2f2f2',
-    },
-    titulo: {
-        fontSize: 32,
-        fontWeight: 'bold',
-        marginBottom: 15,
-    },
-    boton: {
-        backgroundColor: '#4db6e8',
-        padding: 13,
-        borderRadius: 5,
-        marginBottom: 12,
-        alignItems: 'center',
-    },
-    textoBoton: {
-        color: '#fff',
-        fontWeight: '600',
-    },
-    containerFrom: {
-        paddingHorizontal: 10,
-        marginTop: 20,
-    },
-    input: {
-        height: 20,
-        paddingHorizontal: 15,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        marginLeft: 10,
-        marginRight: 10,
-        borderRadius: 10,
-    },
-    boton1: {
-        backgroundColor: '#28a745',
-        paddingVertical: 6,
-        paddingHorizontal: 10,
-        textAlign: 'center',
-        borderWidth: 1,
-        borderColor: '#28a745',
-        borderRadius: 4,
-    },
-    textoError: {
-        color: 'red',
-        fontWeight: '600',
-    }
-});
-
-
 
 export default Posts; 
