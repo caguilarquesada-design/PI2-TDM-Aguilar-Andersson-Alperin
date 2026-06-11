@@ -23,9 +23,9 @@ function Login(props) {
                 props.navigation.navigate('HomeMenu');
             })
             .catch(error => {
-                // const error = error.message.json()
-                console.log('ERRROR', error)
-                // setErrores(error.message)
+                const errorparseado = JSON.parse(error.message)
+                console.log('ERRROR', errorparseado)
+                setErrores(errorparseado.error.message)
             });
     }
     

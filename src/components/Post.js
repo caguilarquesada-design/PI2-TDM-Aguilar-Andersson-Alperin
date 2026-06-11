@@ -34,13 +34,12 @@ function Post(props) {
     return (
         <View style={styles.posteo}>
 
-            <Text style={styles.fecha}>{post.data.email} posteó hoy</Text>
-            // Date(propiedad del documento createdAt).toLocaleString()
+            <Text style={styles.fecha}>{post.data.email} posteó el {new Date(post.data.createdAt).toLocaleString()}</Text>
 
             <Text style={styles.descrip}> {post.data.descripcion}</Text>
             <View >
 
-                <Pressable onPress={() => likePost(item)} style={styles.boton1}>
+                <Pressable onPress={() => likePost(post)} style={styles.boton1}>
                     <Text style={styles.textoBoton}>❤️ Like</Text>
                     <Text style={styles.texto}>
                         {likes.length} likes

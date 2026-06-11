@@ -41,7 +41,6 @@ function ComentarPosteo(props) {
                 .then(() => {
                     setComentario('');
                     setError('');
-                    props.navigation.navigate('Home');
                 })
                 .catch(error => {
                     setError('No se pudo agregar el comentario.');

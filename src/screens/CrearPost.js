@@ -8,6 +8,10 @@ function CrearPost(props) {
     const [errores, setErrores] = useState('');
 
     function onSubmit() {
+        if (descripcion === ""){
+            setErrores("El posteo no puede estar vacío");
+            return
+        }
         db.collection('posts')
             .add({
                 email: auth.currentUser.email,
@@ -16,8 +20,9 @@ function CrearPost(props) {
                 likes: [],
                 comentarios: [],
             })
-            .then((response) => {
-                props.navigation.navigate('Home');
+            .then(() => {
+                setDescripcion('');
+                setErrores("");
             })
             .catch(error => {
                 setErrores('Fallo en la creacion del Post.')
