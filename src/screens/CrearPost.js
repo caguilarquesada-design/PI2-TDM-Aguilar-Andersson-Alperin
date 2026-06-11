@@ -62,13 +62,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 15,
     },
-    boton: {
-        backgroundColor: '#4db6e8',
-        padding: 13,
-        borderRadius: 5,
-        marginBottom: 12,
-        alignItems: 'center',
-    },
     textoBoton: {
         color: 'black',
         fontWeight: '600',

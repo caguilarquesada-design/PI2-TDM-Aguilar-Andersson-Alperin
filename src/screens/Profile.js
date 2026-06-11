@@ -1,8 +1,6 @@
-import { Text, View, Pressable, StyleSheet } from 'react-native';
+import { Text, View, Pressable, StyleSheet, FlatList } from 'react-native';
 import { useState, useEffect } from "react";
 import { auth, db } from "../firebase/config";
-import { FlatList } from 'react-native-web';
-
 
 function Profile(props) {
 
@@ -37,7 +35,7 @@ function Profile(props) {
                 setPosteos(posts);
                 setLoading(false);
             });
-    }, []);3
+    }, []);
 
     function logout() {
         auth.signOut()
@@ -96,8 +94,7 @@ function Profile(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
-        backgroundColor: "gray"
+        padding: 20
     },
 
     titulo: {
@@ -112,7 +109,8 @@ const styles = StyleSheet.create({
 
     nombreUsuario: {
         fontSize: 22,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        paddingBottom: 10
     },
 
     emailusuario: {
@@ -131,16 +129,16 @@ const styles = StyleSheet.create({
         borderColor: "black",
         borderRadius: 18,
         padding: 12,
-        marginBottom: 12,
+        marginBottom: 12
     },
 
     usuarioPost: {
         fontSize: 13,
-        marginBottom: 8,
+        marginBottom: 8
     },
 
     descripcion: {
-        fontSize: 17,
+        fontSize: 17
     },
 
     botonLogout: {
@@ -150,7 +148,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: 'black',
         alignItems: 'center',
-        marginTop: 15,
+        marginTop: 15
     },
 
     textoLogout: {

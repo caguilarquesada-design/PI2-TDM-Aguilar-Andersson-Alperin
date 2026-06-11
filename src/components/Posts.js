@@ -1,7 +1,7 @@
-import { Text, View, Pressable, StyleSheet, TextInput } from 'react-native';
+import { Text, View, Pressable, StyleSheet, FlatList } from 'react-native';
 import { useEffect, useState } from 'react';
 import { db, auth } from '../firebase/config';
-import { FlatList } from 'react-native';
+import firebase from 'firebase';
 
 function Posts(props) {
 
@@ -49,11 +49,10 @@ function Posts(props) {
     }
 
     return (
-        <View>
-            <Text >Página principal</Text>
+        <View style={styles.container}>
             {
                 loading ?
-                    <Text>Cargando posteos...</Text>
+                    <Text style={styles.texto}>Cargando posteos...</Text>
                     :
                     <FlatList
                         data={posts}
@@ -62,23 +61,23 @@ function Posts(props) {
                             const likes = item.data.likes ? item.data.likes : [];
 
                             return (
-                                <View >
+                                <View style={styles.posteo}>
 
-                                    <Text>{item.data.email} posteó hoy</Text>
+                                    <Text style={styles.fecha}>{item.data.email} posteó hoy</Text>
 
-                                    <Text > {item.data.descripcion}</Text>
+                                    <Text style={styles.descrip}> {item.data.descripcion}</Text>
                                     <View >
 
-                                        <Pressable onPress={() => likePost(item)} >
-                                            <Text >Like</Text>
-                                            <Text >
+                                        <Pressable onPress={() => likePost(item)} style={styles.boton1}>
+                                            <Text style={styles.textoBoton}>Like</Text>
+                                            <Text style={styles.texto}>
                                                 {likes.length} likes
                                             </Text>
                                         </Pressable>
 
-                                        <Pressable
+                                        <Pressable style={styles.boton1}
                                             onPress={() => props.navigation.navigate('ComentarPosteo', { id: item.id })} >
-                                            <Text >Comentar</Text>
+                                            <Text style={styles.textoBoton}>Comentar</Text>
                                         </Pressable>
 
                                     </View>
@@ -91,5 +90,44 @@ function Posts(props) {
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 20
+    },
+    texto: {
+        fontSize: 15,
+        padding: 10,
+    },
+    posteo: {
+        backgroundColor: 'white',
+        borderRadius: 15,
+        padding: 15,
+        marginBottom: 15,
+    },
+    fecha: {
+        fontSize: 12,
+        color: 'gray',
+        marginBottom: 10,
+    },
+    descrip: {
+        fontSize: 15,
+    },
+    boton1: {
+        backgroundColor: '#a1d7f0e5',
+        flex: 2, 
+        padding: 14,
+        borderRadius: 10,
+        borderColor: 'black',
+        alignItems: 'center',
+        marginTop: 15,
+    },
+    textoBoton: {
+        fontSize: 15,
+        padding: 10,
+        fontWeight: 'bold'
+    }
+});
 
 export default Posts; 

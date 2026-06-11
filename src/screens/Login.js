@@ -27,6 +27,12 @@ function Login(props) {
                 setErrores(error.message)
             });
     }
+    
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            props.navigation.navigate('HomeMenu')
+        }
+    });
 
 // esto para ver que en la consola las cosas se guarden bien.
 
@@ -66,9 +72,7 @@ return (
         <Pressable onPress={() => props.navigation.navigate('Register')} style={styles.boton1}>
             <Text style={styles.textoBoton}>No tengo cuenta</Text>
         </Pressable>
-        <Pressable onPress={() => props.navigation.navigate('HomeMenu')} style={styles.boton2}>
-            <Text style={styles.textoBoton}>Entrar en la app</Text>
-        </Pressable>
+    
     </View>
 )
 }
@@ -76,12 +80,10 @@ return (
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 25,
-        width: '100%',
-        backgroundColor: '#f2f2f2',
+        padding: 20
     },
     titulo: {
-        fontSize: 32,
+        fontSize: 28,
         fontWeight: 'bold',
         marginBottom: 15,
     },
@@ -90,21 +92,26 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     boton1: {
-        backgroundColor: '#4db6e8',
-        padding: 13,
-        borderRadius: 5,
-        marginBottom: 12,
+        backgroundColor: '#a1d7f0e5',
+        padding: 14,
+        borderRadius: 8,
+        borderWidth: 2,
+        borderColor: 'black',
         alignItems: 'center',
+        marginTop: 15
     },
     boton2: {
-        backgroundColor: 'orange',
-        padding: 13,
-        borderRadius: 5,
-        marginBottom: 12,
+        backgroundColor: '#a1d7f0e5',
+        padding: 14,
+        borderRadius: 8,
+        borderWidth: 2,
+        borderColor: 'black',
         alignItems: 'center',
+        marginTop: 15
     },
     textoBoton: {
-        color: '#fff',
+        fontSize: 17,
+        color: 'black',
         fontWeight: '600',
     },
     containerFrom: {
@@ -114,26 +121,26 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 20,
-        paddingHorizontal: 15,
+        margin: 5,
+        padding: 15,
         borderWidth: 1,
         borderColor: '#ccc',
-        marginLeft: 10,
-        marginRight: 10,
         borderRadius: 10,
     },
     boton3: {
-        backgroundColor: '#28a745',
-        paddingVertical: 6,
-        paddingHorizontal: 10,
-        textAlign: 'center',
-        borderWidth: 1,
-        borderColor: '#28a745',
-        borderRadius: 4,
+        backgroundColor: 'pink',
+        padding: 14,
+        borderRadius: 8,
+        borderWidth: 2,
+        borderColor: 'black',
+        alignItems: 'center',
+        marginTop: 15
     }, 
     textoError: {
         color: 'red',
         fontWeight: '600',
     }
 });
+
 
 export default Login;

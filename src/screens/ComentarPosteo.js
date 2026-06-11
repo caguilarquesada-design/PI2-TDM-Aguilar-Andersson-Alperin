@@ -1,8 +1,9 @@
-import { Text, View, Pressable, StyleSheet, TextInput } from 'react-native';
-import { useState } from 'react';
+import { Text, View, Pressable, StyleSheet, TextInput, FlatList} from 'react-native';
+import { useState, useEffect} from 'react';
 import { auth, db } from '../firebase/config';
+import firebase from 'firebase';
 
-
+    
 function ComentarPosteo(props) {
 
     const id = props.route.params.id;
@@ -40,6 +41,7 @@ function ComentarPosteo(props) {
                 .then(() => {
                     setComentario('');
                     setError('');
+                    props.navigation.navigate('Home');
                 })
                 .catch(error => {
                     setError('No se pudo agregar el comentario.');
@@ -63,13 +65,13 @@ function ComentarPosteo(props) {
         <View style={styles.container}>
             <View style={styles.posteo}>
 
-                <Text style={styles.usuario}>{posteo.data.email} posteó hoy</Text>
+                <Text style={styles.fecha}>{posteo.data.email} posteó hoy</Text>
 
-                <Text style={styles.descripcion}>{posteo.data.descripcion}</Text>
+                <Text style={styles.descrip}>{posteo.data.descripcion}</Text>
 
-                <Text style={styles.likes}>corazones {likes.length} likes</Text>
+                <Text style={styles.textoBoton}>corazones {likes.length} likes</Text>
 
-                <Text style={styles.subtitulo}>Comentarios</Text>
+                <Text style={styles.texto}>Comentarios</Text>
 
                 {
                     comentarios.length > 0 ?
@@ -77,13 +79,13 @@ function ComentarPosteo(props) {
                             data={comentarios}
                             keyExtractor={(item, index) => index.toString()}
                             renderItem={({ item }) => (
-                                <View style={styles.comentario}>
+                                <View style={styles.texto}>
                                     <Text>{item}</Text>
                                 </View>
                             )}
                         />
                     :
-                        <Text style={styles.sinComentarios}>Todavía no hay comentarios</Text>
+                        <Text style={styles.textoBoton}>Todavía no hay comentarios</Text>
                 }
 
                 <TextInput
@@ -101,7 +103,7 @@ function ComentarPosteo(props) {
                         null
                 }
 
-                <Pressable onPress={() => agregarComentario()} style={styles.boton}>
+                <Pressable onPress={() => agregarComentario()} style={styles.boton1}>
                     <Text style={styles.textoBoton}>Publicar comentario</Text>
                 </Pressable>
 
@@ -110,6 +112,49 @@ function ComentarPosteo(props) {
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 20
+    },
+    texto: {
+        fontSize: 15,
+        padding: 10,
+    },
+    posteo: {
+        backgroundColor: 'white',
+        borderRadius: 15,
+        padding: 15,
+        marginBottom: 15,
+    },
+    fecha: {
+        fontSize: 12,
+        color: 'gray',
+        marginBottom: 10,
+    },
+    descrip: {
+        fontSize: 15,
+    },
+    boton1: {
+        backgroundColor: '#a1d7f0e5',
+        flex: 2, 
+        padding: 14,
+        borderRadius: 10,
+        borderColor: 'black',
+        alignItems: 'center',
+        marginTop: 15,
+    },
+    textoBoton: {
+        fontSize: 15,
+        padding: 10,
+        fontWeight: 'bold'
+    },
+    textoError: {
+        color: 'red',
+        fontWeight: '600',
+    }
+});
 
 
 export default ComentarPosteo;

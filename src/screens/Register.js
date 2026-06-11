@@ -38,7 +38,8 @@ function Register(props) {
 
                 <TextInput style={styles.input}
                     keyboardType='default'
-                    placeholder='userName'
+                    placeholder='userName'  
+                    
                     onChangeText={text => setUserName(text)}
                     value={userName} />
 
@@ -55,7 +56,7 @@ function Register(props) {
                         null
                 }
 
-                <Pressable onPress={() => onSubmit(email, password)} style={styles.boton1}>
+                <Pressable onPress={() => onSubmit(email, password, userName)} style={styles.boton1}>
                     <Text style={styles.textoBoton} >Registrarse</Text>
                 </Pressable>
             </View>
@@ -70,47 +71,48 @@ function Register(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 25,
-        width: '100%',
-        backgroundColor: '#f2f2f2',
+        padding: 20
     },
     titulo: {
-        fontSize: 32,
+        fontSize: 28,
         fontWeight: 'bold',
         marginBottom: 15,
     },
     boton: {
-        backgroundColor: '#4db6e8',
-        padding: 13,
-        borderRadius: 5,
-        marginBottom: 12,
+        backgroundColor: 'pink',
+        padding: 14,
+        borderRadius: 8,
+        borderWidth: 2,
+        borderColor: 'black',
         alignItems: 'center',
+        marginTop: 15,
     },
     textoBoton: {
-        color: '#fff',
+        fontSize: 17,
+        color: 'black',
         fontWeight: '600',
     },
     containerFrom: {
         paddingHorizontal: 10,
         marginTop: 20,
+        marginBottom: 20,
     },
     input: {
         height: 20,
-        paddingHorizontal: 15,
+        margin: 5,
+        padding: 15,
         borderWidth: 1,
         borderColor: '#ccc',
-        marginLeft: 10,
-        marginRight: 10,
         borderRadius: 10,
     },
     boton1: {
-        backgroundColor: '#28a745',
-        paddingVertical: 6,
-        paddingHorizontal: 10,
-        textAlign: 'center',
-        borderWidth: 1,
-        borderColor: '#28a745',
-        borderRadius: 4,
+        backgroundColor: '#a1d7f0e5',
+        padding: 14,
+        borderRadius: 8,
+        borderWidth: 2,
+        borderColor: 'black',
+        alignItems: 'center',
+        marginTop: 15,
     },
     textoError: {
         color: 'red',
