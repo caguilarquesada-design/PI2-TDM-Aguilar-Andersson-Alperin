@@ -37,28 +37,34 @@ function Post(props) {
             <Text style={styles.fecha}>{post.data.email} posteó el {new Date(post.data.createdAt).toLocaleString()}</Text>
 
             <Text style={styles.descrip}> {post.data.descripcion}</Text>
-            <View >
+            <View style={styles.container}>
 
-                <Pressable onPress={() => likePost(post)} style={styles.boton1}>
+                <Pressable onPress={() => likePost(post)} style={styles.botonLike}>
                     <Text style={styles.textoBoton}>❤️ Like</Text>
                     <Text style={styles.texto}>
                         {likes.length} likes
                     </Text>
                 </Pressable>
 
-                <Pressable style={styles.boton1}
+                <Pressable style={styles.botonComent}
                     onPress={() => props.navigation.navigate('ComentarPosteo', { id: post.id })} >
-                    <Text style={styles.textoBoton}>🖋️Comentar</Text>
+                    <Text style={styles.textoBoton}>🖋️ Comentar</Text>
                 </Pressable>
 
             </View>
 
         </View>
-    );  
+    );
 
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flexDirection: 'row',
+        marginRight: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     texto: {
         fontSize: 15,
         padding: 10,
@@ -66,30 +72,36 @@ const styles = StyleSheet.create({
     posteo: {
         backgroundColor: 'white',
         borderRadius: 15,
-        padding: 15,
+        padding: 25,
         marginBottom: 15,
         borderWidth: 2,
+        alignItems: 'center',
     },
     fecha: {
-        fontSize: 12,
+        fontSize: 15,
         color: 'gray',
         marginBottom: 10,
     },
     descrip: {
         fontSize: 25,
+        marginBottom: 20,
     },
-    boton1: {
+    botonComent: {
         backgroundColor: '#a1d7f0e5',
-        flex: 2,
         padding: 12,
         borderRadius: 10,
         borderColor: 'black',
         alignItems: 'center',
-        marginTop: 20,
-        alignSelf: 'flex-start',
         flexDirection: 'row',
-        justifyContent: 'space-between',
-
+    },
+    botonLike: {
+        backgroundColor: '#a1d7f0e5',
+        padding: 12,
+        borderRadius: 10,
+        borderColor: 'black',
+        alignItems: 'center',
+        flexDirection: 'row',
+        marginRight: 20,
     },
     textoBoton: {
         fontSize: 15,

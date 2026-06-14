@@ -23,6 +23,7 @@ function CrearPost(props) {
             .then(() => {
                 setDescripcion('');
                 setErrores("");
+                props.navigation.navigate('Home');
             })
             .catch(error => {
                 setErrores('Fallo en la creacion del Post.')
